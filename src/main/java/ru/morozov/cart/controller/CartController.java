@@ -37,10 +37,10 @@ public class CartController {
         }
     }
 
-    @PutMapping("/{userId}/addProduct")
-    public ResponseEntity addProduct(@PathVariable("userId") Long userId, @RequestBody NewCartProductDto cartProduct) {
+    @PutMapping("/{userId}/changeProduct")
+    public ResponseEntity changeProduct(@PathVariable("userId") Long userId, @RequestBody NewCartProductDto cartProduct) {
         try {
-            cartService.addProduct(userId, cartProduct);
+            cartService.changeProduct(userId, cartProduct);
             return new ResponseEntity(HttpStatus.OK);
         } catch (NotFoundException e) {
             log.warn(e.getMessage());

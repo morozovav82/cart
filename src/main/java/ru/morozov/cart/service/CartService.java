@@ -56,12 +56,12 @@ public class CartService {
         }
     }
 
-    public void addProduct(Long userId, NewCartProductDto cartProduct) {
+    public void changeProduct(Long userId, NewCartProductDto cartProduct) {
         Assert.notNull(userId, "UserId is null");
         Assert.notNull(cartProduct, "Product is null");
         Assert.notNull(cartProduct.getProductId(), "ProductId is null");
         Assert.notNull(cartProduct.getQuantity(), "Quantity is null");
-        Assert.isTrue(cartProduct.getQuantity() > 0, "Wrong quantity");
+        Assert.isTrue(cartProduct.getQuantity() != 0, "Wrong quantity");
 
         Optional<Cart> res = cartRepository.findOneByUserId(userId);
         if (res.isPresent()) {
@@ -71,10 +71,19 @@ public class CartService {
             Optional<CartProduct> existsProduct = products.stream().filter(i -> i.getProductId().equals(cartProduct.getProductId())).findFirst();
             if (existsProduct.isPresent()) {
                 CartProduct existsCartProduct = existsProduct.get();
-                existsCartProduct.setQuantity(existsCartProduct.getQuantity() + cartProduct.getQuantity());
-                cartRepository.save(cart);
+                int newQnt = cartProduct.getQuantity() + existsCartProduct.getQuantity();
+                if (newQnt > 0) {
+                    //change qnt
+                    existsCartProduct.setQuantity(newQnt);
+                    cartRepository.save(cart);
+                } else {
+                    //remove product from cart
+                    cart.getProducts().remove(existsCartProduct);
+                    cartProductRepository.delete(existsCartProduct);
+                }
                 log.info("cart updated: " + cart);
             } else {
+                Assert.isTrue(cartProduct.getQuantity() > 0, "Wrong quantity");
                 Assert.notNull(cartProduct.getPrice(), "Price is null");
                 Assert.isTrue(cartProduct.getPrice() > 0, "Wrong price");
 
