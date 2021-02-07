@@ -11,21 +11,21 @@ import ru.morozov.cart.dto.NewCartProductDto;
 import ru.morozov.cart.exceptions.NotFoundException;
 import ru.morozov.cart.service.CartService;
 
-@RestController()
-@RequestMapping("/cart")
+@RestController
+@RequestMapping
 @RequiredArgsConstructor
 @Slf4j
 public class CartController {
 
     private final CartService cartService;
 
-    @PostMapping("")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CartDto create(@RequestBody NewCartDto cart) {
         return cartService.create(cart);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{userId:\\d+}")
     public ResponseEntity<CartDto> get(@PathVariable("userId") Long userId) {
         try {
             return new ResponseEntity(
@@ -37,7 +37,7 @@ public class CartController {
         }
     }
 
-    @PutMapping("/{userId}/changeProduct")
+    @PutMapping("/{userId:\\d+}/changeProduct")
     public ResponseEntity changeProduct(@PathVariable("userId") Long userId, @RequestBody NewCartProductDto cartProduct) {
         try {
             cartService.changeProduct(userId, cartProduct);

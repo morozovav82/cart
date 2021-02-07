@@ -1,5 +1,11 @@
+#logging:
+#  level:
+#    root: debug
+
 server:
   port: 8087
+  servlet:
+    context-path: '/cart'
 
 spring:
     datasource:
@@ -14,4 +20,4 @@ spring:
       password: password
       mode: native
 
-app:basePath: /
+app.basePath: /cart
