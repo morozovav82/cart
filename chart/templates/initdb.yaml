@@ -48,8 +48,8 @@ spec:
           - "-c"
           - |
             psql $DATABASE_URI <<'EOF'
-              drop table if exists cart;
-              drop table if exists cart_products;
+              --drop table if exists cart;
+              --drop table if exists cart_products;
               create table cart (id serial not null, user_id int not null);
               create table cart_products (id serial not null, cart_id int not null, product_id int not null, quantity int not null, price float not null);
             EOF
