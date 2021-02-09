@@ -13,11 +13,11 @@ spring:
       url: jdbc:postgresql://localhost:5432/postgres?currentShema=cart
       username: cart
       password: qwerty123
-    artemis:
+    rabbitmq:
       host: localhost
-      port: 61616
-      user: artemis
-      password: password
-      mode: native
+      port: 5672
+      username: rabbit
+      password: rabbit
+
 
 app.basePath: /cart
