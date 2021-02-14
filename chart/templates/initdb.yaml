@@ -53,8 +53,8 @@ spec:
               create table cart (id serial not null, user_id int not null);
               create table cart_products (id serial not null, cart_id int not null, product_id int not null, quantity int not null, price float not null);
 
-              --drop table if exists bill_messages;
-              create table bill_messages (id serial not null, sent timestamp, topic varchar(100), routing_key varchar(100), message text, class_name varchar(500));
+              --drop table if exists cart_messages;
+              create table cart_messages (id serial not null, sent timestamp, topic varchar(100), routing_key varchar(100), message text, class_name varchar(500));
             EOF
 
   backoffLimit: 0
