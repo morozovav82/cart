@@ -9,8 +9,12 @@ spring:
       port: ${MQ_PORT}
       username: ${MQ_USER}
       password: ${MQ_PSW}
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
 
 app.basePath:
+users.url: ${USERS_URL}
 
 active-mq:
   OrderCreated-topic: OrderCreated
