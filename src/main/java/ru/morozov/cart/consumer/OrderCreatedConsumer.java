@@ -11,7 +11,7 @@ import ru.morozov.messages.OrderCreatedMsg;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-@RabbitListener(queues = "${active-mq.OrderCreated-topic}")
+@RabbitListener(queues = "${mq.OrderCreated-topic}")
 public class OrderCreatedConsumer {
 
     private final CartService cartService;

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MqConfig {
 
-    @Value("${active-mq.OrderCreated-topic}")
+    @Value("${mq.OrderCreated-topic}")
     private String orderCreatedTopic;
 
     @Bean

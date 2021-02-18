@@ -20,7 +20,7 @@ public class TestController {
     @Autowired
     private MessageService messageService;
 
-    @Value("${active-mq.OrderCreated-topic}")
+    @Value("${mq.OrderCreated-topic}")
     private String orderCreatedTopic;
 
     @PostMapping("/sendOrderCreatedMsg")
