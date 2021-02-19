@@ -10,6 +10,7 @@ import ru.morozov.cart.dto.NewCartDto;
 import ru.morozov.cart.dto.NewCartProductDto;
 import ru.morozov.cart.exceptions.NotFoundException;
 import ru.morozov.cart.service.CartService;
+import ru.morozov.cart.utils.AuthUtils;
 
 @RestController
 @RequestMapping
@@ -20,9 +21,12 @@ public class CartController {
     private final CartService cartService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public CartDto create(@RequestBody NewCartDto cart) {
-        return cartService.create(cart);
+    public ResponseEntity<CartDto> create(@RequestBody NewCartDto cart) {
+        if (!AuthUtils.getCurrentUserId().equals(cart.getUserId())) {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+
+        return new ResponseEntity(cartService.create(cart), HttpStatus.CREATED);
     }
 
     @GetMapping("/{userId:\\d+}")
